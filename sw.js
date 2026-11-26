@@ -1,6 +1,6 @@
 // Офлайн кеш: след първото зареждане приложението работи без интернет.
 // При промяна на файловете увеличи номера на версията.
-const VERSION = 'dwg-viewer-v1';
+const VERSION = 'dwg-viewer-v2';
 const FILES = [
   './', './index.html', './manifest.webmanifest',
   './apple-touch-icon.png',

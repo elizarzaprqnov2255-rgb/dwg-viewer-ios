@@ -38,10 +38,13 @@ nav button.on{color:var(--acc);background:var(--ui2)}
 nav button:focus-visible,.btn:focus-visible,.sheet input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .btn{flex:none;white-space:nowrap;min-height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--ui2);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
 .btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
-.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 16px;text-align:center;z-index:1;background:var(--ui);overflow:auto;-webkit-overflow-scrolling:touch}
-.empty::before,.empty::after{content:"";flex:1 0 0}
-.home{display:flex;align-items:center;gap:8px;border:0;background:none;color:inherit;font:inherit;padding:0;min-width:0;cursor:pointer;flex:0 1 auto}
-.hist{width:100%;max-width:520px;text-align:left;margin-top:14px}
+.empty{position:absolute;inset:0;display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);justify-items:center;padding:calc(env(safe-area-inset-top) + 8px) 16px calc(env(safe-area-inset-bottom) + 8px);text-align:center;z-index:1;background:var(--ui);overflow:hidden}
+.e-top{align-self:end;display:flex;flex-direction:column;align-items:center;gap:10px;padding-bottom:26px}
+.e-bot{align-self:stretch;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:16px}
+.back{position:absolute;left:8px;top:calc(env(safe-area-inset-top) + 4px);min-height:44px;border:0;background:none;color:var(--acc);font:inherit;font-size:17px;font-weight:600;cursor:pointer;padding:0 10px}
+body.home header,body.home nav{display:none}body.home{grid-template-rows:minmax(0,1fr)}
+.homebtn{display:flex;align-items:center;gap:8px;border:0;background:none;color:inherit;font:inherit;padding:0;min-width:0;cursor:pointer;flex:0 1 auto}
+.hist{width:100%;max-width:520px;text-align:left;margin-top:10px}
 .hh{display:flex;align-items:center;justify-content:space-between;padding:0 4px}
 .hh h2{font-size:13px;margin:0;color:var(--mut);font-weight:600}
 .lnk.sm{font-size:13px;color:var(--mut);min-height:36px}
@@ -56,7 +59,7 @@ nav button:focus-visible,.btn:focus-visible,.sheet input:focus-visible{outline:2
 .empty svg{width:96px;height:96px;border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .empty h1{margin:4px 0 0;font-size:26px;line-height:1.1}
 .empty p{margin:0;color:var(--mut);font-size:14px;max-width:260px}
-.btn.big{min-height:54px;min-width:220px;font-size:18px;border-radius:14px;margin-top:6px}
+.btn.big{min-height:60px;min-width:240px;font-size:19px;border-radius:16px;box-shadow:0 8px 24px rgba(255,77,46,.35)}
 .lnk{border:0;background:none;color:var(--ink);font:inherit;font-size:15px;text-decoration:underline;min-height:44px;cursor:pointer}
 .chip{position:absolute;left:50%;transform:translateX(-50%);top:12px;background:rgba(17,24,27,.92);color:#fff;padding:8px 14px;border-radius:12px;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;pointer-events:none;display:none;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .chip.show{display:block}
@@ -86,9 +89,9 @@ dt{color:var(--mut)}dd{margin:0;text-align:right;font-variant-numeric:tabular-nu
 @media(prefers-reduced-motion:reduce){.sheet{transition:none}}
 </style>
 </head>
-<body>
+<body class="home">
 <header>
-  <button class="home" id="home" aria-label="Начало"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#1239a8"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g1)"/><path d="M8 16h48M8 28h48M8 40h48M8 52h48M16 8v48M28 8v48M40 8v48M52 8v48" stroke="#fff" stroke-opacity=".14" stroke-width="1"/><path d="M13 14h38v28H13zM33 14v14M33 28h18" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 34a6 6 0 0 1 6-6" fill="none" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/><path d="M13 51h38M13 47.5v7M51 47.5v7" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/></svg>
+  <button class="homebtn" id="home" aria-label="Начало"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#1239a8"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g1)"/><path d="M8 16h48M8 28h48M8 40h48M8 52h48M16 8v48M28 8v48M40 8v48M52 8v48" stroke="#fff" stroke-opacity=".14" stroke-width="1"/><path d="M13 14h38v28H13zM33 14v14M33 28h18" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 34a6 6 0 0 1 6-6" fill="none" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/><path d="M13 51h38M13 47.5v7M51 47.5v7" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/></svg>
   <div class="fname" id="fname">Без файл</div></button>
   <span class="badge" id="ver">—</span>
   <div class="sp"></div>
@@ -97,12 +100,14 @@ dt{color:var(--mut)}dd{margin:0;text-align:right;font-variant-numeric:tabular-nu
 <main id="main">
   <canvas id="cv"></canvas>
   <div class="empty" id="empty">
-    <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#1239a8"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g2)"/><path d="M8 16h48M8 28h48M8 40h48M8 52h48M16 8v48M28 8v48M40 8v48M52 8v48" stroke="#fff" stroke-opacity=".14" stroke-width="1"/><path d="M13 14h38v28H13zM33 14v14M33 28h18" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 34a6 6 0 0 1 6-6" fill="none" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/><path d="M13 51h38M13 47.5v7M51 47.5v7" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/></svg>
-    <h1>DWG Viewer</h1>
+    <button class="back" id="back" hidden>‹ Към чертежа</button>
+    <div class="e-top"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#1239a8"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g2)"/><path d="M8 16h48M8 28h48M8 40h48M8 52h48M16 8v48M28 8v48M40 8v48M52 8v48" stroke="#fff" stroke-opacity=".14" stroke-width="1"/><path d="M13 14h38v28H13zM33 14v14M33 28h18" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 34a6 6 0 0 1 6-6" fill="none" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/><path d="M13 51h38M13 47.5v7M51 47.5v7" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/></svg><h1>DWG Viewer</h1></div>
     <button class="btn pri big" id="openBig">Отвори DWG</button>
-    <p>Работи офлайн · файлът остава на телефона · поддържа и DXF</p>
-    <button class="lnk" id="demo">Виж примерен чертеж</button>
-    <section class="hist" id="hist" hidden><div class="hh"><h2>Последни файлове</h2><button class="lnk sm" id="histClear">Изчисти</button></div><div id="histList"></div></section>
+    <div class="e-bot">
+      <p>Работи офлайн · файлът остава на телефона · поддържа и DXF</p>
+      <button class="lnk" id="demo">Виж примерен чертеж</button>
+      <section class="hist" id="hist" hidden><div class="hh"><h2>Последни файлове</h2><button class="lnk sm" id="histClear">Изчисти</button></div><div id="histList"></div></section>
+    </div>
   </div>
   <div class="chip" id="chip"></div>
   <div class="note" id="note"></div>
@@ -318,7 +323,7 @@ async function renderHist(){const box=$('#histList'),sec=$('#hist');let a=[];try
     x.onclick=async e=>{e.stopPropagation();try{await H.del(o.id)}catch(z){}renderHist()};
     const go=async()=>{const r=await H.get(o.id).catch(()=>null);if(r)openFile(new File([r.buf],r.name))};
     b.onclick=go;b.onkeydown=e=>{if(e.key==='Enter')go()};b.append(im,tx,x);box.append(b)}}
-function showHome(){$('#empty').classList.remove('hide');renderHist()}
+function showHome(){document.body.classList.add('home');$('#empty').classList.remove('hide');$('#back').hidden=!doc;renderHist()}
 
 /* ---------- open file ---------- */
 async function openFile(f,nosave){
@@ -338,7 +343,7 @@ async function openFile(f,nosave){
       doc={kind:'dxf',name:f.name,ver:d.hdr.$ACADVER||'',units:UNITS[+d.hdr.$INSUNITS]||'',size:f.size,layers:d.layers,...g};
     }
     $('#fname').textContent=doc.name;$('#ver').textContent=(VER[doc.ver]||doc.ver||doc.kind.toUpperCase());
-    mpts=[];$('#empty').classList.add('hide');renderLayers();renderInfo();fit();if(!nosave)remember(f,buf);
+    mpts=[];document.body.classList.remove('home');$('#empty').classList.add('hide');renderLayers();renderInfo();fit();if(!nosave)remember(f,buf);
   }catch(e){note('Файлът не може да се отвори',e.message||String(e))}
   $('#busy').classList.remove('show');
 }
@@ -466,7 +471,7 @@ function sample(){
   a(0,'ENDSEC',0,'EOF');
   let s='';for(let i=0;i<o.length;i+=2)s+=o[i]+'\n'+o[i+1]+'\n';return new File([s],'Пример — апартамент.dxf');
 }
-$("#openBig").onclick=pickFile;$("#demo").onclick=()=>openFile(sample(),1);$("#home").onclick=showHome;$("#histClear").onclick=async()=>{try{await H.clear()}catch(e){}renderHist()};renderHist();
+$("#openBig").onclick=pickFile;$("#demo").onclick=()=>openFile(sample(),1);$("#home").onclick=showHome;$("#back").onclick=()=>{document.body.classList.remove("home");$("#empty").classList.add("hide");size()};$("#histClear").onclick=async()=>{try{await H.clear()}catch(e){}renderHist()};renderHist();
 }
 </script>
 <script>
