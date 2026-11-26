@@ -1,0 +1,34 @@
+// Офлайн кеш: след първото зареждане приложението работи без интернет.
+// При промяна на файловете увеличи номера на версията.
+const VERSION = 'dwg-viewer-v1';
+const FILES = [
+  './', './index.html', './manifest.webmanifest',
+  './apple-touch-icon.png',
+  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/icon.svg'
+];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
+  e.respondWith(
+    caches.match(req, { ignoreSearch: true }).then(hit => {
+      if (hit) {
+        // обновяване на заден план, когато има мрежа
+        fetch(req).then(r => { if (r && r.ok) caches.open(VERSION).then(c => c.put(req, r)); }).catch(() => {});
+        return hit;
+      }
+      return fetch(req).catch(() => caches.match('./index.html'));
+    })
+  );
+});
